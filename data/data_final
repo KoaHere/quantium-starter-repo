@@ -1,0 +1,34 @@
+import pandas 
+
+# reading csv into a pandas dataframe
+
+df_1 = pandas.read_csv('data/daily_sales_data_0.csv')
+df_2 = pandas.read_csv('data/daily_sales_data_1.csv')
+df_3 = pandas.read_csv('data/daily_sales_data_2.csv')#
+
+# combine into one dataframe
+df_all = pandas.concat([df_1, df_2, df_3])
+
+
+# removes the $ from the string 
+df_all['price'] = df_all['price'].str.replace('$','')
+# turns the string into a float
+df_all['price'] = df_all['price'].astype('float')
+
+# function to calculate sales made in a day
+def calculated(price, quantity):
+    return price*quantity
+
+# created a dataframe that applies the function that multiplies both the price and quantuty
+df_all['Sales'] = df_all.apply(lambda x: calculated(x['price'],x['quantity']), axis=1)
+
+# filtering rows that only include the product 'pink morsel' and changing the order to Sales, Date, Region
+df_filtered_pink = df_all.loc[df_all['product'] == 'pink morsel', ['Sales','date','region']]
+
+# writing filtered df to csv 
+df_filtered_pink.to_csv('data/finaloutput', index = False)
+
+
+    
+    
+
