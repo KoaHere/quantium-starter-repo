@@ -26,7 +26,7 @@ df_all['Sales'] = df_all.apply(lambda x: calculated(x['price'],x['quantity']), a
 df_filtered_pink = df_all.loc[df_all['product'] == 'pink morsel', ['Sales','date','region']]
 
 # writing filtered df to csv 
-df_filtered_pink.to_csv('data/finaloutput', index = False)
+df_filtered_pink.to_csv('data/finaloutput.csv', index = False)
 
 
     
