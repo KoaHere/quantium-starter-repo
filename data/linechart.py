@@ -3,13 +3,18 @@ import pandas as pd
 from dash import Dash, dcc, html, dash_table, Output, Input
 import plotly.express as px
 
+import os
+
+BASE_DIR = os.path.dirname(__file__)
+DATA_PATH = os.path.join(BASE_DIR, 'finaloutput.csv')
+
 colors = {
     'black': '#111111',
     'beige': '#9A6242'
 }
 
 # incororate data
-df = pd.read_csv("data/finaloutput.csv")
+df = pd.read_csv(DATA_PATH)
 
 # initiliasing the app
 app = Dash()
@@ -18,6 +23,7 @@ app = Dash()
 app.layout = html.Div(style={'backgroundColor': colors['black']}, children=[
 
     html.H1(children='Pink Morsel',
+            id='header',
             style={
                 'padding-top': '15px',
                 'padding-left': '20px',
@@ -33,7 +39,8 @@ app.layout = html.Div(style={'backgroundColor': colors['black']}, children=[
                 'textAlign': 'center',
                 
                 'font-family': ['Arial'],
-                'color' : ['#9A6242']
+                'color' : ['#9A6242'],
+                
              }),
 
     html.Div(
